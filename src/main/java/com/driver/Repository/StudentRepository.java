@@ -38,6 +38,8 @@ public class StudentRepository {
             } else {
                 teacherStudentMapping.put(teacher, List.of(student));
             }
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -51,16 +53,16 @@ public class StudentRepository {
 
     public Teacher findTeacher(String teacher){
         // your code goes here
-        if(teacherMap.isEmpty()){
-            return null;
+        if(teacherMap.containsKey(teacher)){
+            return teacherMap.get(teacher);
         }
-        return teacherMap.get(teacher);
+        return null;
     }
 
     public List<String> findStudentsFromTeacher(String teacher){
         // your code goes here
         // find student list corresponding to a teacher
-        return teacherStudentMapping.getOrDefault(teacher,Collections.emptyList());
+        return teacherStudentMapping.get(teacher);
     }
 
     public List<String> findAllStudents(){
@@ -74,15 +76,13 @@ public class StudentRepository {
 
     public void deleteTeacher(String teacher){
         // your code goes here
-        if(teacherMap.remove(teacher) != null){
+        if(teacherMap.containsKey(teacher)){
             teacherMap.remove(teacher);
-            System.out.println("removed teacher and studentMapping has been deleted");
         }
         else{
             System.out.println("teacher not found");
         }
     }
-
     public void deleteAllTeachers(){
         // your code goes here
         if(teacherMap.isEmpty()){

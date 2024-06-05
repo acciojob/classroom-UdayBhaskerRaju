@@ -37,7 +37,7 @@ public class StudentController {
 
     @PutMapping("/add-student-teacher-pair")
     public ResponseEntity<String> addStudentTeacherPair(@RequestParam String student, @RequestParam String teacher){
-
+        studentService.createStudentTeacherPair(student, teacher);
         return new ResponseEntity<>("New student-teacher pair added successfully", HttpStatus.CREATED);
     }
 
@@ -49,7 +49,6 @@ public class StudentController {
     @GetMapping("/get-teacher-by-name/{name}")
     public ResponseEntity<Teacher> getTeacherByName(@PathVariable String name){
         Teacher teacher = studentService.findTeacher(name); // Assign student by calling service layer method
-
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
     @GetMapping("/get-students-by-teacher-name/{teacher}")
